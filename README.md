@@ -7,7 +7,7 @@ Currently, just a script for checking out everything and keeping it updated with
 ## Prerequisites
 
 * Clone this scripts repo to a folder where you would like all the Meadow repos to also be cloned, such as a `WildernessLabs` folder. If you keep all possible repos together, and there are name conflicts between Meadow repos and other adjacent repos, it will likely cause Git commands to fail in weird ways.
-* [Install PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) for your system ([Windows](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2), [macOS](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.2)), [Linux](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-linux?view=powershell-7.2), or [ARM variants of these](https://docs.microsoft.com/en-us/powershell/scripting/install/powershell-on-arm?view=powershell-7.2))
+* [Install PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) for your system ([Windows](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.2), [macOS](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-macos?view=powershell-7.2), [Linux](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-linux?view=powershell-7.2), or [ARM variants of these](https://docs.microsoft.com/en-us/powershell/scripting/install/powershell-on-arm?view=powershell-7.2))
 
 ## DevRepos-CloneOrUpdate.ps1
 

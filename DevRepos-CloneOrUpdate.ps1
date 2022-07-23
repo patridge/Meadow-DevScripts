@@ -72,7 +72,6 @@ $repoDetailList `
           $availableRemoteNames = @(); `
         } `
         $hasExpectedRemote = ($availableRemoteNames | Where-Object { $_ -eq $expectedRemoteName }).Count -eq 1; `
-        Write-Host $hasExpectedRemote; `
         if (!$hasExpectedRemote) { `
           # Didn't find expected Git remote. `
           Write-Host "`tRemote not available: $($_.UpstreamRemoteName)."; `

@@ -6,7 +6,6 @@ $upstreamRemoteDefault = "origin";
 $upstreamDevelopBranchDefault = "develop";
 # Start with a list of all the repos we want to check.
 $repoNames = @( `
-  "DefCon-Badge-2022", `
   "Meadow.CLI", `
   "Meadow.Contracts", `
   "Meadow.Core", `
@@ -25,10 +24,6 @@ $repoNames = @( `
 # Create a list of all repo default overrides to the defaults.
 # NOTE: Not using [PSCustomObject] because `Add-Member -NotePropertyMembers` doesn't work with those objects.
 $repoCustomDetails = @( `
-  @{ `
-    RepoName = "DefCon-Badge-2022"; `
-    UpstreamDevelopBranch = "main"; `
-  }, `
   @{ `
     RepoName = "Meadow.Logging"; `
     UpstreamDevelopBranch = "main"; `
@@ -57,6 +52,9 @@ $repoCustomDetails `
       $repoDefaults | Add-Member -NotePropertyMembers $_ -PassThru -Force; `
     } `
   };
+$originalLocation = Get-Location;
+# Navigate up a level to clone repos adjacent to this one.
+Set-Location ..;
 $repoDetailList `
   | ForEach-Object { `
     # Try to get the latest changes from all upstream repos. `
@@ -115,3 +113,4 @@ $repoDetailList `
       } `
     } `
   };
+Set-Location $originalLocation;

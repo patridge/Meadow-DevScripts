@@ -30,7 +30,7 @@ Get the latest code and changes from the various Meadow repos and their typical 
 
 From within the **Meadow-DevScripts** repo, run the following command in a PowerShell terminal.
 
-`DevRepos-CloneOrUpdate.ps1`
+`./DevRepos-CloneOrUpdate.ps1`
 
 * ✅ If you haven't checked out any of the Meadow repositories, or only some of them, this script will clone the rest of them.
 * ✅ If you already have any of the Meadow repositories, this script will try to update them with the latest changes from their upstream development branches.

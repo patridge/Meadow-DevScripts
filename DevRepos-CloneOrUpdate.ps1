@@ -20,7 +20,14 @@ $repoNames = @(
   "Meadow.ProjectLab.Samples",
   "Meadow.Units",
   "Meadow_Samples",
-  "VSCode_Meadow_Extension"
+  "VSCode_Meadow_Extension",
+  "VS_Win_Meadow_Extension",
+  "Meadow_Performance_Benchmarks",
+  "Meadow.TestSuite",
+  "Meadow.Tests",
+  "Documentation",
+  "Meadow_Assemblies",
+  "MQTTnet" `
 );
 # Create a list of all repo default overrides to the defaults.
 # NOTE: Not using [PSCustomObject] because `Add-Member -NotePropertyMembers` doesn't work with those objects.
@@ -35,7 +42,24 @@ $repoCustomDetails = @(
   },
   @{
     RepoName = "Meadow.Project.Samples";
-    UpstreamDevelopBranch = "b6.5"; 
+    UpstreamDevelopBranch = "b6.5";
+  },
+  @{
+    RepoName = "Meadow.Foundation";
+    UpstreamDevelopBranch = "develop";
+  },
+  @{
+    RepoName = "Meadow.TestSuite";
+    UpstreamDevelopBranch = "feature/validation";
+  },
+  @{
+    RepoName = "Meadow.Tests";
+    UpstreamDevelopBranch = "main";
+  },
+  @{
+    RepoName = "MQTTnet";
+    UpstreamDevelopBranch = "meadow";
+  }
 );
 # Build up a list of repo details using the defaults.
 $repoDetailList = $repoNames
@@ -45,6 +69,7 @@ $repoDetailList = $repoNames
       RepoUrl = "https://github.com/WildernessLabs/$_.git";
       UpstreamRemoteName = $upstreamRemoteDefault;
       UpstreamDevelopBranch = $upstreamDevelopBranchDefault;
+      LocalDirectory = $_;
     }
   };
 # Merge any custom repo overrides with the bulk-generated defaults.
@@ -60,8 +85,8 @@ $repoDetailList
   | ForEach-Object {
     # Try to get the latest changes from all upstream repos.
     Write-Host "Repo: $($_.RepoName)";
-    if (Test-Path -Path $_.RepoName) {
-      Set-Location $_.RepoName;
+    if (Test-Path -Path $_.LocalDirectory) {
+      Set-Location $_.LocalDirectory;
       $currentBranch = (git branch --show-current);
       if ($currentBranch -eq $_.UpstreamDevelopBranch) {
         # Found expected dev branch currently checked out; proceeding...
@@ -76,7 +101,7 @@ $repoDetailList
         Write-Host $hasExpectedRemote;
         if (!$hasExpectedRemote) {
           # Didn't find expected Git remote.
-          Write-Host "`tRemote not available: $($_.UpstreamRemoteName).";
+          Write-Warning "`tRemote not available: $($_.UpstreamRemoteName).";
           Write-Warning "`tSkipped update: $($_.RepoName).";
         } else {
           Write-Host "`tPulling latest from $($_.UpstreamRemoteName)/$($_.UpstreamDevelopBranch).";
@@ -91,7 +116,7 @@ $repoDetailList
         }
       } else {
         # Not on the desired dev branch. Requesting an update to the dev branch without impacting current branch.
-        Write-Host "`tRepo $($_.RepoName) not on expected dev branch ($($currentBranch) vs. $($_.UpstreamDevelopBranch)).`n`tAttempting to update adjacent dev branch.";
+        Write-Warning "`tRepo $($_.RepoName) not on expected dev branch ($($currentBranch) vs. $($_.UpstreamDevelopBranch)).`n`tAttempting to update adjacent dev branch.";
         git fetch $($_.UpstreamRemoteName) $($_.UpstreamDevelopBranch):$($_.UpstreamDevelopBranch);
         if ($LASTEXITCODE -eq 1) {
           # External `git` call failed (git fetch).
@@ -103,8 +128,8 @@ $repoDetailList
       Set-Location ..
     } else {
       # Repo not found; cloning new...
-      Write-Host "`tRepo folder not found: cloning...";
-      git clone --branch $($_.UpstreamDevelopBranch) --origin $($_.UpstreamRemoteName) $($_.RepoUrl);
+      Write-Host "`tRepo folder not found: cloning new copy...";
+      git clone --branch $($_.UpstreamDevelopBranch) --origin $($_.UpstreamRemoteName) $($_.RepoUrl) $($_.LocalDirectory);
       if ($LASTEXITCODE -eq 1) {
         # External `git` call failed (git clone).
         Write-Warning "`tError cloning repo: $($_.RepoName)";

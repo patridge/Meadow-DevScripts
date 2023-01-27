@@ -15,19 +15,25 @@ $repoNames = @(
   "Meadow.Foundation.Grove",
   "Meadow.Foundation.Featherwings",
   "Meadow.Foundation.MikroBus",
+  "Meadow.Linux",
   "Meadow.Logging",
+  "Meadow.ModBus",
   "Meadow.Project.Samples",
+  "Meadow.ProjectLab",
   "Meadow.ProjectLab.Samples",
+  "Meadow.Sdk",
+  "Meadow.TestSuite",
+  "Meadow.Tests",
   "Meadow.Units",
   "Meadow_Samples",
   "VSCode_Meadow_Extension",
   "VS_Win_Meadow_Extension",
   "Meadow_Performance_Benchmarks",
-  "Meadow.TestSuite",
-  "Meadow.Tests",
   "Documentation",
+  "Juego",
   "Meadow_Assemblies",
-  "MQTTnet" `
+  "MQTTnet",
+  "Maple"
 );
 # Create a list of all repo default overrides to the defaults.
 # NOTE: Not using [PSCustomObject] because `Add-Member -NotePropertyMembers` doesn't work with those objects.
@@ -36,22 +42,18 @@ $repoCustomDetails = @(
     RepoName = "DefCon-Badge-2022";
     UpstreamDevelopBranch = "main";
   },
-  @{
-    RepoName = "Meadow.Logging";
-    UpstreamDevelopBranch = "main";
-  },
-  @{
-    RepoName = "Meadow.Project.Samples";
-    UpstreamDevelopBranch = "b6.5";
-  },
-  @{
-    RepoName = "Meadow.Foundation";
-    UpstreamDevelopBranch = "develop";
-  },
-  @{
-    RepoName = "Meadow.TestSuite";
-    UpstreamDevelopBranch = "feature/validation";
-  },
+  # @{
+  #   RepoName = "Meadow.Logging";
+  #   UpstreamDevelopBranch = "main";
+  # },
+  # @{
+  #   RepoName = "Meadow.Foundation";
+  #   UpstreamDevelopBranch = "develop";
+  # },
+  # @{
+  #   RepoName = "Meadow.TestSuite";
+  #   UpstreamDevelopBranch = "feature/validation";
+  # },
   @{
     RepoName = "Meadow.Tests";
     UpstreamDevelopBranch = "main";
@@ -59,6 +61,14 @@ $repoCustomDetails = @(
   @{
     RepoName = "MQTTnet";
     UpstreamDevelopBranch = "meadow";
+  },
+  # @{
+  #   RepoName = "Meadow.Linux";
+  #   UpstreamDevelopBranch = "develop";
+  # }
+  @{
+    RepoName = "Juego";
+    UpstreamDevelopBranch = "v2";
   }
 );
 # Build up a list of repo details using the defaults.
